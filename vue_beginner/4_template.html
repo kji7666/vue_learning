@@ -1,0 +1,78 @@
+<script></script>
+
+<template>
+  <div class="container">
+    <h1>🌟 Todo List</h1>
+
+    <!-- 輸入框，雙向綁定 newTodo -->
+    <input v-model="newTodo" placeholder="輸入新任務" @keyup.enter="addTodo" />
+
+    <!-- 按鈕，點擊觸發 addTodo -->
+    <button @click="addTodo">新增任務</button>
+
+    <!-- 如果清單有東西 -->
+    <ul v-if="todos.length > 0"> <!--如果 todos 陣列裡有元素，才會渲染這個 <ul>（有任務才顯示清單）。-->
+      <li v-for="(todo, index) in todos" :key="index"> <!--對 todos 陣列裡的每一個元素，逐個「迴圈渲染」出一個 <li>, 為了讓 Vue 快速追蹤這些 <li>，必須加上獨一無二的 key。-->
+        {{ index + 1 }}. {{ todo }} <!--文本插值-->
+        <button @click="deleteTodo(index)">❌ 刪除</button>
+      </li>
+    </ul>
+
+    <!-- 如果清單是空的 -->
+    <p v-else>目前沒有任務，來新增一個吧！🚀</p>
+
+    <!-- 這裡是用 v-html 直接插入一段小HTML -->
+    <div v-html="htmlText"></div>
+  </div>
+</template>
+
+<script setup>
+// 引入 ref 來做響應式變數
+import { ref } from 'vue'
+
+// 新任務輸入框的內容
+const newTodo = ref('')
+
+// Todo 清單
+const todos = ref([])
+
+// 新增任務
+function addTodo() {
+  if (newTodo.value.trim() !== '') {
+    todos.value.push(newTodo.value.trim())
+    newTodo.value = '' // 清空輸入框
+  }
+}
+
+// 刪除任務
+function deleteTodo(index) {
+  todos.value.splice(index, 1)
+}
+
+// 插入的 HTML
+const htmlText = ref('<p style="color: gray;">👉 點擊任務旁邊可以刪除喔！</p>')
+</script>
+
+<style scoped>
+.container {
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+}
+input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+}
+button {
+  margin-left: 5px;
+}
+ul {
+  padding-left: 20px;
+}
+</style>
+
+
+<style></style>

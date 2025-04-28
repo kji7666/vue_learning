@@ -1,0 +1,133 @@
+<template>
+    <div>
+      <!-- 單行文字輸入 -->
+      <p>Message is: {{ message }}</p>
+      <input v-model="message" placeholder="edit me" />
+  
+      <!-- 多行文字輸入 -->
+      <span>Multiline message is:</span>
+      <p style="white-space: pre-line;">{{ message }}</p>
+      <textarea v-model="message" placeholder="add multiple lines"></textarea>
+  
+      <!-- 單一核取方塊 -->
+      <p>Single Checkbox:</p>
+      <input type="checkbox" id="checkbox" v-model="checked" />
+      <label for="checkbox">{{ checked }}</label>
+  
+      <!-- 多選核取方塊 -->
+      <p>Checked names: {{ checkedNames }}</p>
+      <input type="checkbox" id="jack" value="Jack" v-model="checkedNames" />
+      <label for="jack">Jack</label>
+      <input type="checkbox" id="john" value="John" v-model="checkedNames" />
+      <label for="john">John</label>
+      <input type="checkbox" id="mike" value="Mike" v-model="checkedNames" />
+      <label for="mike">Mike</label>
+  
+      <!-- 單選按鈕 -->
+      <p>Picked: {{ picked }}</p>
+      <input type="radio" id="one" value="One" v-model="picked" />
+      <label for="one">One</label>
+      <input type="radio" id="two" value="Two" v-model="picked" />
+      <label for="two">Two</label>
+  
+      <!-- 下拉選單 -->
+      <p>Selected (single): {{ selected }}</p>
+      <select v-model="selected">
+        <option disabled value="">Please select one</option>
+        <option>A</option>
+        <option>B</option>
+        <option>C</option>
+      </select>
+  
+      <p>Selected (multiple): {{ selectedMultiple }}</p>
+      <select v-model="selectedMultiple" multiple>
+        <option>A</option>
+        <option>B</option>
+        <option>C</option>
+      </select>
+  
+      <!-- ✅ 進階用法區域 ✅ -->
+  
+      <!-- Checkbox with 自訂 true-value / false-value -->
+      <p>Custom True/False Checkbox (固定字串): {{ toggle }}</p>
+      <input
+        type="checkbox"
+        v-model="toggle"
+        true-value="yes"
+        false-value="no"
+      />
+  
+      <!-- Checkbox with 動態 true-value / false-value -->
+      <p>Custom True/False Checkbox (動態值): {{ dynamicToggle }}</p>
+      <input
+        type="checkbox"
+        v-model="dynamicToggle"
+        :true-value="dynamicTrueValue"
+        :false-value="dynamicFalseValue"
+      />
+  
+      <!-- Radio button 綁定的是物件 -->
+      <p>Pick object: {{ pick }}</p>
+      <input type="radio" v-model="pick" :value="first" />
+      <label>First</label>
+      <input type="radio" v-model="pick" :value="second" />
+      <label>Second</label>
+  
+      <!-- 下拉選單直接選物件 -->
+      <p>Selected Object: {{ selectedObject }}</p>
+      <select v-model="selectedObject">
+        <option :value="{ number: 123 }">123</option>
+        <option :value="{ number: 456 }">456</option>
+      </select>
+  
+      <!-- v-model 修飾符範例 -->
+      <div style="margin-top:20px;">
+        <p>Lazy update (在 change 事件才同步): {{ lazyMsg }}</p>
+        <input v-model.lazy="lazyMsg" placeholder="lazy update" />
+  
+        <p>Auto number conversion: {{ age }}</p>
+        <input v-model.number="age" placeholder="enter a number" />
+  
+        <p>Auto trim spaces: {{ trimmedMsg }}</p>
+        <input v-model.trim="trimmedMsg" placeholder="trimmed input" />
+      </div>
+  
+    </div>
+  </template>
+  
+  <script setup>
+  import { ref } from 'vue'
+  
+  // 基本欄位
+  const message = ref('')
+  const checked = ref(false)
+  const checkedNames = ref([])
+  const picked = ref('')
+  const selected = ref('')
+  const selectedMultiple = ref([])
+  
+  // 自訂 true-value / false-value
+  const toggle = ref('no')
+  const dynamicToggle = ref('no')
+  const dynamicTrueValue = '👍'
+  const dynamicFalseValue = '👎'
+  
+  // Radio 綁定的物件
+  const first = { name: 'First' }
+  const second = { name: 'Second' }
+  
+  // 下拉選單選物件
+  const selectedObject = ref('')
+  
+  // v-model 修飾符範例
+  const lazyMsg = ref('')
+  const age = ref(0)
+  const trimmedMsg = ref('')
+  </script>
+  
+  <style scoped>
+  input, textarea, select {
+    display: block;
+    margin: 10px 0;
+  }
+  </style>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Vue Counter</title>
+</head>
+<body>
+  <div id="app">
+    <button @click="count++"> <!-- @click : 會執行 count ++ -->
+      Count is: {{ count }} <!-- {{ count }} : {{}} 是 Vue 語法, 它會把 count 的值從 js 插入到 HTML 中去 -->
+    </button>
+  </div>
+
+  <!-- type="module" : 讓我們可以使用 JS 的 import 語法 -->
+  <script type="module"> 
+    // 這行是從 CDN 引入 Vue 的核心庫, createApp 是 Vue 的一個函數, 用來創建 Vue 應用, ref 用來創建響應式數據
+    import { createApp, ref } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js'
+    // 用 Vue 建立一個 App，定義一個響應式變數 count，並把它掛載到 #app 上
+    createApp({ // createApp API 元件
+      setup() { // API 的入口點：元件建立時會呼叫 setup() 來定義資料與邏輯
+        const count = ref(0) // 宣告一個「響應式變數」count，初始值為 0。透過 ref 建立 reactive 資料
+        return { count } // 將 count 回傳給模板使用。Vue 會自動解包 ref，所以在模板中可以寫 {{ count }}
+      }
+    }).mount('#app') // 掛載
+  </script>
+</body>
+</html>

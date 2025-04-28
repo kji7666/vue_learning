@@ -1,0 +1,20 @@
+<div
+  class="static" 
+  :class="{ active: isActive, 'text-danger': hasError }"
+></div> <!-- 我们可以给 :class (v-bind:class 的缩写) 传递一个对象来"动态切换" class -->
+<!--上面的语法表示 active 內容取决于数据属性 isActive 與 hasError 的真假值。-->
+<script setup>
+    import { ref } from 'vue'
+    const isActive = ref(true)
+    const hasError = ref(false)
+    // 結果 : class="static active"
+    // 当 isActive 或者 hasError 改变时，class 列表会随之更新。
+    // 举例来说，如果 hasError 变为 true，class 列表也会变成 "static active text-danger"。
+    
+    const styleObject = reactive({ // 直接绑定一个样式对象通常是一个好主意，这样可以使模板更加简洁
+        color: 'red',
+        fontSize: '30px'
+    }) // :style 支持绑定 JavaScript 对象值，对应的是 HTML 元素的 style 属性
+</script>
+
+<div :style="styleObject"></div>

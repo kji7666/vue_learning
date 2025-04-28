@@ -1,0 +1,27 @@
+<script type="module">    // type="module" : 讓我們可以使用 JS 的 import 語法, 直接在 <script> 裡 import瀏覽器會報錯
+  import { createApp } from 'vue'
+  const app = createApp({
+      data () {
+          return {
+              count: 0
+          }
+      }
+  })
+  app.mount('#app')
+  app.config.errorHandler = (err) => { // // 設定錯誤處理器，如果 Vue 裡有錯誤發生，就會觸發這個函式
+      /* 处理错误 */
+  }
+  // 註冊一個全域元件 'TodoDeleteButton'
+  // 注意：TodoDeleteButton 必須是你已經定義好的元件，不然會報錯
+  app.component('TodoDeleteButton', TodoDeleteButton)
+  const app2 = createApp({
+  /* ... */
+  })
+  app2.mount('#container-2')
+
+
+</script>
+
+<div id="app">
+  <button @click="count++">{{ count }}</button>
+</div>
